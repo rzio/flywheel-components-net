@@ -52,11 +52,12 @@
   <ItemGroup>
     <Compile Include="BuzHashTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RabinHashFunctionTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chunking\Chunking.csproj">
+    <ProjectReference Include="..\Chunking\Io.Rz.FlywheelComponents.Chunking.csproj">
       <Project>{16f9dd90-466c-4ecd-a857-049979cf6316}</Project>
-      <Name>Chunking</Name>
+      <Name>Io.Rz.FlywheelComponents.Chunking</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

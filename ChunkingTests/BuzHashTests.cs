@@ -25,25 +25,31 @@ namespace Io.Rz.FlywheelComponents.ChunkingTests
     public class BuzHashTests
     {
         [TestMethod]
-        public void TestBasic()
+        public void TestBuzHashBasic()
         {
-            Assert.AreNotEqual(BuzHash.Hash("foo"), BuzHash.Hash("bar"));
-            Assert.AreNotEqual(BuzHash.Hash("foo"), BuzHash.Hash("oof"));
-            Assert.AreNotEqual(BuzHash.Hash("1234567890"), BuzHash.Hash("1134567890"));
+            BuzHashFunction h = new BuzHashFunction();
+            Assert.AreNotEqual(h.Hash("foo"), h.Hash("bar"));
+            Assert.AreNotEqual(h.Hash("foo"), h.Hash("oof"));
+            Assert.AreNotEqual(h.Hash("1234567890"), h.Hash("1134567890"));
+
+            Assert.AreEqual(0xbee30996, h.Hash("aaabbb12334567rp6ejflskxnjclzjflaksjfdlaksjlaksjdasd"));
+
+           
         }
 
 
         [TestMethod]
-        public void TestSlide()
+        public void TestBuzHashSlide()
         {
+            BuzHashFunction h = new BuzHashFunction();
             byte[] bytes = { 2, 2, 2, 5, 7, 9 };
-            uint hash = BuzHash.NonRollingHash(bytes, 3, 3);
+            uint hash = h.NonRollingHash(bytes, 3, 3);
 
-            uint newHash = BuzHash.Hash(bytes, 0, 3);
+            uint newHash = h.Hash(bytes, 0, 3);
 
             for (int i = 1; i < bytes.Length - 2; i++)
             {
-                newHash = BuzHash.UpdateHash(newHash, bytes[i + 2], bytes[i - 1], 3);
+                newHash = h.UpdateHash(newHash, bytes[i + 2], bytes[i - 1], 3);
             }
             Assert.AreEqual(hash, newHash);
 

@@ -26,12 +26,12 @@ namespace Io.Rz.FlywheelComponents.Chunking
     /// This code is ported from c implemntation located at:
     /// https://yara-project.googlecode.com/svn/trunk/libyara/hash.c
     /// </summary>
-    public class BuzHash
+    public class BuzHashFunction
     {
         /// <summary>
         /// Initial hash seed
         /// </summary>
-        private static readonly uint seed = 0xe9ae3b8a;
+        private readonly static uint seed = 0xe9ae3b8a;
 
         #region Hash Function table
         private static uint[] hashFunctionTable = 
@@ -78,7 +78,7 @@ namespace Io.Rz.FlywheelComponents.Chunking
         /// <param name="offset"> beginning of the window in the buffer</param>
         /// <param name="windowSize">window size in bytes</param>
         /// <returns>hash</returns>
-        public static uint Hash(byte[] buffer, int offset, int windowSize)
+        public uint Hash(byte[] buffer, int offset, int windowSize)
         {
             uint result = seed;
             int j = offset;
@@ -95,7 +95,7 @@ namespace Io.Rz.FlywheelComponents.Chunking
         /// </summary>
         /// <param name="buffer">byte buffer to hash</param>
         /// <returns>hash</returns>
-        public static uint Hash(byte[] buffer)
+        public uint Hash(byte[] buffer)
         {
             return Hash(buffer, 0, buffer.Length);
         }
@@ -105,7 +105,7 @@ namespace Io.Rz.FlywheelComponents.Chunking
         /// </summary>
         /// <param name="str">String to hash</param>
         /// <returns>hash</returns>
-        public static uint Hash(string str)
+        public uint Hash(string str)
         {
             byte[] bytes = new byte[str.Length * sizeof(char)];
             System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
@@ -121,13 +121,13 @@ namespace Io.Rz.FlywheelComponents.Chunking
         /// <param name="oldByte">Old byte that was removed from the window</param>
         /// <param name="windowSize">Size of the window (in bytes)</param>
         /// <returns></returns>
-        public static uint UpdateHash(uint oldHash, byte newByte, byte oldByte, int windowSize)
+        public uint UpdateHash(uint oldHash, byte newByte, byte oldByte, int windowSize)
         {
             return oldHash.BSL(1) ^ hashFunctionTable[oldByte].BSL(windowSize) ^ hashFunctionTable[newByte];
         }
 
         // this is purely for testing purposes
-        internal static uint NonRollingHash(byte[] buffer, int offset, int numBytes)
+        internal uint NonRollingHash(byte[] buffer, int offset, int numBytes)
         {
             uint value = seed;
             for (int i = offset; i < offset + numBytes; i++)
@@ -136,6 +136,7 @@ namespace Io.Rz.FlywheelComponents.Chunking
             }
             return value;
         }
+
     }
 
     public static class UIntExtensions

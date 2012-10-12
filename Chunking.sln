@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chunking", "Chunking\Chunking.csproj", "{16F9DD90-466C-4ECD-A857-049979CF6316}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Io.Rz.FlywheelComponents.Chunking", "Chunking\Io.Rz.FlywheelComponents.Chunking.csproj", "{16F9DD90-466C-4ECD-A857-049979CF6316}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChunkingTests", "ChunkingTests\ChunkingTests.csproj", "{3E628921-DE54-49AB-B1B3-FDA978411273}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Io.Rz.FlywheelComponents.ChunkingTests", "ChunkingTests\Io.Rz.FlywheelComponents.ChunkingTests.csproj", "{3E628921-DE54-49AB-B1B3-FDA978411273}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
