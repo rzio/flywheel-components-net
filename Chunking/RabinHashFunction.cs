@@ -67,6 +67,7 @@ namespace Io.Rz.FlywheelComponents.Chunking
     ///  Springer-Verlag
     ///  1993
     /// </summary>
+    // TODO - need to figure out how to calculate rolling hash 
     public class RabinHashFunction
     {
 
