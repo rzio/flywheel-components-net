@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Io.Rz.FlywheelComponents.Util;
 
-namespace Io.Rz.FlywheelComponents.Chunking
+namespace Io.Rz.FlywheelComponents.ChunkingTests
 {
     [TestClass]
     public class RabinHashFunctionTests

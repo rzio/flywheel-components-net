@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Io.Rz.FlywheelComponents.Chunking
+namespace Io.Rz.FlywheelComponents.Util
 {
     /*
 * Licensed to the Apache Software Foundation (ASF) under one or more

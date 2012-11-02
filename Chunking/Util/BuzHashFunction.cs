@@ -1,6 +1,7 @@
 ﻿using System;
+using System.IO;
 
-namespace Io.Rz.FlywheelComponents.Chunking
+namespace Io.Rz.FlywheelComponents.Util
 {
 
     /*
@@ -25,13 +26,15 @@ namespace Io.Rz.FlywheelComponents.Chunking
     /// 
     /// This code is ported from c implemntation located at:
     /// https://yara-project.googlecode.com/svn/trunk/libyara/hash.c
+    /// and from 
+    /// https://github.com/lemire/rollinghashjava/tree/master/src/rollinghash
     /// </summary>
     public class BuzHashFunction
     {
         /// <summary>
         /// Initial hash seed
         /// </summary>
-        private readonly static uint seed = 0xe9ae3b8a;
+        private readonly static uint seed = 0;//0xe9ae3b8a;
 
         #region Hash Function table
         private static uint[] hashFunctionTable = 
@@ -81,13 +84,27 @@ namespace Io.Rz.FlywheelComponents.Chunking
         public uint Hash(byte[] buffer, int offset, int windowSize)
         {
             uint result = seed;
-            int j = offset;
-            for (int i = offset + windowSize - 1; i > offset; i--, j++)
+            for (var i = offset; i < offset + windowSize; i++)
             {
-                result ^= hashFunctionTable[buffer[j]].BSL(i);
+                result = result.BSL(1) ^ hashFunctionTable[buffer[i]];
             }
+            return result;
+        }
 
-            return result ^ hashFunctionTable[j];
+        /// <summary>
+        /// Hashes the byte buffer using the BuzHash algorithm
+        /// </summary>
+        /// <param name="stream">stream to hash</param>
+        /// <param name="windowSize">window size in bytes</param>
+        /// <returns>hash</returns>
+        public uint Hash(Stream stream,  int windowSize)
+        {
+            uint result = seed;
+            for (int i = 0; i < windowSize && stream.Position < stream.Length; i++)
+            {
+                result = result.BSL(1) ^ hashFunctionTable[stream.ReadByte()];
+            }
+            return result;
         }
 
         /// <summary>
@@ -125,18 +142,6 @@ namespace Io.Rz.FlywheelComponents.Chunking
         {
             return oldHash.BSL(1) ^ hashFunctionTable[oldByte].BSL(windowSize) ^ hashFunctionTable[newByte];
         }
-
-        // this is purely for testing purposes
-        internal uint NonRollingHash(byte[] buffer, int offset, int numBytes)
-        {
-            uint value = seed;
-            for (int i = offset; i < offset + numBytes; i++)
-            {
-                value = value.BSL(1) ^ hashFunctionTable[buffer[i]];
-            }
-            return value;
-        }
-
     }
 
     public static class UIntExtensions

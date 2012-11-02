@@ -35,9 +35,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuzHashFunction.cs" />
+    <Compile Include="BuzHashRollingHasher.cs" />
+    <Compile Include="Chunker.cs" />
+    <Compile Include="AbstractRollingHasher.cs" />
+    <Compile Include="Util\BuzHashFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RabinHashFunction.cs" />
+    <Compile Include="Util\RabinHashFunction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
